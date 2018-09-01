@@ -1,6 +1,6 @@
 # Project
 
-This repository is for the Marketplace, for the Qub³d Engine Group
+The Client for the Qub³d Engine! Launched by the launcher, playing games, created by the community
 
 ## Authors
 
