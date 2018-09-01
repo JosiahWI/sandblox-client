@@ -1,0 +1,16 @@
+**/bin
+**/build
+**/nbproject
+*.a
+*.o
+*.exe
+*.depend
+*.layout
+*.config
+*.kdev4
+*.log
+*.user
+!default.config
+
+
+\.vs*/
