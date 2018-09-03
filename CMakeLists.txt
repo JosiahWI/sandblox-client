@@ -41,34 +41,11 @@ set(source_dir ${PROJECT_SOURCE_DIR}/source/src)
 set(headers_dir ${PROJECT_SOURCE_DIR}/source/include)
 
 set(client_sources
-  ${source_dir}/globalVars.cpp
   ${source_dir}/main.cpp
-  ${source_dir}/client.cpp
-  ${source_dir}/management/chunks.cpp
-  ${source_dir}/input/inputHandler.cpp
-  ${source_dir}/states/mainMenu.cpp
-  ${source_dir}/states/options.cpp
-  ${source_dir}/states/playing.cpp
-  ${source_dir}/states/loading.cpp
-  ${libdeps}/ImGUI/imgui.cpp
-  ${libdeps}/ImGUI/imgui_draw.cpp
-  ${libdeps}/ImGUI/imgui_demo.cpp
-  ${libdeps}/ImGUI/examples/imgui_impl_sdl.cpp
-  ${libdeps}/ImGUI/examples/imgui_impl_opengl2.cpp
 )
 
 set(clientHeaders
-    ${headers_dir}/client.hpp
-    ${headers_dir}/types.hpp
-    ${headers_dir}/globalVars.hpp
-    ${headers_dir}/states/mainMenu.hpp
-    ${headers_dir}/states/options.hpp
-    ${headers_dir}/states/playing.hpp
-    ${headers_dir}/states/clientStateMap.hpp
-    ${headers_dir}/management/chunks.hpp
-    ${headers_dir}/input/command.hpp
-    ${headers_dir}/input/inputHandler.hpp
-    ${headers_dir}/gui/imguihelpers.hpp
+   
 )
 
 if(APPLE)
@@ -82,14 +59,12 @@ set(include_dirs
         ${libdeps}/SDL2/include
         ${libdeps}/yaml-cpp/include
         ${libdeps}/ImGUI/
-        ${PROJECT_SOURCE_DIR}/../qub3d-engine/source/include
         ${source_dir}/../include
 )
 
 set(library_dirs
-    qub3d-engine
-	glew_s
-	yaml-cpp
+    glew_s
+    yaml-cpp
     SDL2-static
     SDL2main
 )
@@ -122,14 +97,14 @@ endif()# WIN32
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-add_executable(qub3d-client ${client_sources} ${clientHeaders})
+add_executable(sandblox-client ${client_sources} ${clientHeaders})
 include_directories(${include_dirs})
-target_link_libraries(qub3d-client ${library_dirs})
+target_link_libraries(sandblox-client ${library_dirs})
 
 # Install it system-wide. (Invoked by `sudo make install`)
 if (UNIX)
   install(
-    TARGETS qub3d-client
+    TARGETS sandblox-client
     RUNTIME DESTINATION /usr/bin
   )
 endif()
