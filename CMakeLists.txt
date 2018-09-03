@@ -31,7 +31,7 @@
 # Use this version because it adds some options that we use.
 cmake_minimum_required(VERSION 3.0)
 
-project(qub3d-client)
+project(sandblox-client)
 
 # Set include, library, and source directories.
 
@@ -67,6 +67,7 @@ set(library_dirs
     yaml-cpp
     SDL2-static
     SDL2main
+    Viking
 )
 
 if (UNIX AND NOT APPLE)
