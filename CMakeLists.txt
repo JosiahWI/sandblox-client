@@ -45,7 +45,7 @@ set(client_sources
 )
 
 set(clientHeaders
-   
+   ${headers_dir}/client.hpp
 )
 
 if(APPLE)
@@ -59,6 +59,7 @@ set(include_dirs
         ${libdeps}/SDL2/include
         ${libdeps}/yaml-cpp/include
         ${libdeps}/ImGUI/
+		${libdeps}/../qub3d-renderer/source/include
         ${source_dir}/../include
 )
 
