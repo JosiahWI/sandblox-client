@@ -1,7 +1,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-
 #include <viking/SDLWindow.hpp>
 #include <viking/IRenderer.hpp>
 #include <viking/IUniformBuffer.hpp>
@@ -11,8 +10,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <experimental/filesystem>
 
 using namespace viking;
+
+void copyAssetsDirectory()
+{
+	namespace fs = std::experimental::filesystem;
+	fs::copy(ASSETS_DIRECTORY, ASSETS_OUT_DIRECTORY, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+}
 
 struct Vertex
 {
@@ -247,11 +253,12 @@ public:
 	std::vector<IModel*> models;
 };
 
-
-
-
 int main(int argc, char *argv[])
 {
+#ifndef NDEBUG
+	copyAssetsDirectory();
+#endif
+
 	SetupCamera();
 
 	const RenderingAPI renderingAPI = RenderingAPI::GL3;
@@ -263,8 +270,8 @@ int main(int argc, char *argv[])
 	renderer->start();
 
 	IGraphicsPipeline* pipeline = renderer->createGraphicsPipeline({
-		{ ShaderStage::VERTEX_SHADER, "../../sandblox-client/Shaders/shader.vert" },
-		{ ShaderStage::FRAGMENT_SHADER, "../../sandblox-client/Shaders/shader.frag" }
+		{ ShaderStage::VERTEX_SHADER, "assets/shaders/shader.vert" },
+		{ ShaderStage::FRAGMENT_SHADER, "assets/shaders/shader.frag" }
 		});
 
 	VertexBufferBase vertex = {
@@ -282,7 +289,7 @@ int main(int argc, char *argv[])
 	std::vector<Vertex> vertex_data;
 	std::vector<uint16_t> index_data;
 
-	LoadOBJ("../../sandblox-client/Models/cube.obj", index_data, vertex_data);
+	LoadOBJ("assets/models/cube.obj", index_data, vertex_data);
 
 	IBuffer* vertex_buffer = renderer->createBuffer(vertex_data.data(), sizeof(Vertex), vertex_data.size());
 	IBuffer* index_buffer = renderer->createBuffer(index_data.data(), sizeof(uint16_t), index_data.size());
@@ -290,7 +297,7 @@ int main(int argc, char *argv[])
 	model_pool = renderer->createModelPool(&vertex, vertex_buffer, index_buffer);
 
 
-	ITextureBuffer* texture_buffer = loadTexture("../../sandblox-client/Textures/cobble.bmp");
+	ITextureBuffer* texture_buffer = loadTexture("assets/textures/cobble.bmp");
 	model_pool->attachBuffer(texture_buffer);
 
 

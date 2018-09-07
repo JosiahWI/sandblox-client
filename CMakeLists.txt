@@ -95,9 +95,12 @@ if(WIN32)
     )
 endif()# WIN32
 
+
 # Link the "SandBlox" binary.
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+add_definitions(-DASSETS_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/assets/" -DASSETS_OUT_DIRECTORY="${CMAKE_CURRENT_BINARY_DIR}/assets/")
 
 add_executable(sandblox-client ${client_sources} ${clientHeaders})
 include_directories(${include_dirs})
